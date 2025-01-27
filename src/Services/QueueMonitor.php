@@ -163,11 +163,11 @@ class QueueMonitor
 
         $initialData = null;
 
-        // add initial data
-        if (method_exists($event->payload->displayName(), 'initialMonitorData')) {
-            /** @var \romanzipp\QueueMonitor\Contracts\MonitoredJobContract $jobInstance */
-            $jobInstance = self::getJobInstance($event->payload->decoded['data']);
+        /** @var \romanzipp\QueueMonitor\Contracts\MonitoredJobContract $jobInstance */
+        $jobInstance = self::getJobInstance($event->payload->decoded['data']);
 
+        // add initial data
+        if (method_exists($jobInstance, 'initialMonitorData')) {
             $initialData = $jobInstance->initialMonitorData();
         }
 
